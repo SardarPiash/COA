@@ -1,0 +1,48 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+A DB "Input: $"
+B DB 0AH,0DH,"Output: $"
+
+.CODE
+MAIN PROC
+   MOV AX,@DATA
+   MOV DS,AX
+    
+   ;STRING REVERSE
+   
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF A
+   LEA DX,A
+   INT 21H
+   
+   MOV AH,1   ;TAKING INPUT FOR 1
+   INT 21H
+   MOV BH,AL    
+   
+   MOV AH,1   ;TAKING INPUT FOR 2
+   INT 21H
+   MOV CH,AL
+   
+   MOV AH,1   ;TAKING INPUT FOR 3
+   INT 21H
+   MOV CL,AL
+   
+   MOV AH,9    
+   LEA DX,B
+   INT 21H
+   
+   MOV AH,2
+   MOV DL,CL  
+   INT 21H
+            
+   MOV AH,2
+   MOV DL,CH  
+   INT 21H 
+   
+   MOV AH,2
+   MOV DL,BH  
+   INT 21H  
+
+   
+   MAIN ENDP
+END MAIN

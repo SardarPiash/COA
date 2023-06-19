@@ -1,0 +1,76 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+A DB "ENTER FIRST NUMBER: $"
+B DB 0AH,0DH,"Enter Second Number: $"
+C DB 0AH,0DH,"You have entered $"
+D DB " and $" 
+E DB 0AH,0DH,"ADDITION: $" 
+F DB 0AH,0DH,"Subtraction: $"
+
+.CODE
+MAIN PROC
+   MOV AX,@DATA
+   MOV DS,AX
+   
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF A
+   LEA DX,A
+   INT 21H
+   
+   MOV AH,1   ;TAKING INPUT FROM USER
+   INT 21H
+   MOV BH,AL
+   
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF B 
+   LEA DX,B
+   INT 21H
+   
+   MOV AH,1   ;TAKING INPUT FROM USER
+   INT 21H
+   MOV CH,AL 
+   
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF C
+   LEA DX,C
+   INT 21H
+   
+   MOV AH,2
+   LEA DL,BH  ;HERE WE CAN ALSO USE *MOV*
+   INT 21H  
+    
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF D
+   LEA DX,D   
+   INT 21H
+   
+   MOV AH,2
+   LEA DL,CH  ;HERE WE CAN ALSO USE *MOV*
+   INT 21H  
+   
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF E
+   LEA DX,E
+   INT 21H
+   
+   MOV BL,BH  ;SWAP BH VALUE TO BL
+              
+   ;ADD TWO NUMBER  
+   
+   ADD BH,CH ;STORE IN BH ---- BH=BH+CH 
+   SUB BH,30H
+   MOV AH,2
+   MOV DL,BH
+   INT 21H
+          
+   MOV AH,9   ;SHOWING THE STRING OUTPUT OF F
+   LEA DX,F
+   INT 21H 
+   
+   ;subtract
+   
+   SUB BL,CH 
+   ADD BL,30H
+   MOV AH, 2  
+   MOV DL, BL 
+   INT 21H    
+
+   
+   MAIN ENDP
+END MAIN
